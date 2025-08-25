@@ -118,9 +118,8 @@ function fetchDati(){
 }
 
 async function sendDataToSheet(data) {
-    const url = 'https://script.google.com/macros/s/AKfycbyWh6Rmww5QHWaJKU3fPYgpxDei_Ihcwef66i9HqQDzEzyqe4FeOE22aonYFL2s26MA7Q/exec'; // Sostituisci con l'URL del tuo deployment
-    const spinner = document.getElementById("preloader");
-    spinner.style.display = 'flex';
+    const url = 'https://script.google.com/macros/s/AKfycbyWh6Rmww5QHWaJKU3fPYgpxDei_Ihcwef66i9HqQDzEzyqe4FeOE22aonYFL2s26MA7Q/exec';
+
     const response = await fetch(url, {
       method: 'POST',
       body: JSON.stringify(data), // Invia i dati come JSON
@@ -128,10 +127,8 @@ async function sendDataToSheet(data) {
     const result = await response.text();
     if(response.ok){
       alert("Conferma inviata!");
-	  spinner.style.display = 'none';
     }else{
       alert("Errore durante l'invio.");
-		spinner.style.display = 'none';
     }
     console.log(result);
 }
