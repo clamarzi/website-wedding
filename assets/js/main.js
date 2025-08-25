@@ -59,7 +59,6 @@ function gestioneCampiConferma(){
 	// Gestione partner
 	partnerInput.forEach(input => {
 		input.addEventListener("change", () => {
-			debugger;
 			if (input.value === "si" && input.checked) {
 				partnerFields.style.display = "block";
 			} else if (input.value === "no" && input.checked) {
@@ -129,8 +128,10 @@ async function sendDataToSheet(data) {
     const result = await response.text();
     if(response.ok){
       alert("Conferma inviata!");
+	  spinner.style.display = 'none';
     }else{
       alert("Errore durante l'invio.");
+		spinner.style.display = 'none';
     }
     console.log(result);
 }
