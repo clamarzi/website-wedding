@@ -118,7 +118,7 @@ function fetchDati(){
 }
 
 async function sendDataToSheet(data) {
-    const url = 'https://script.google.com/macros/s/AKfycbyWh6Rmww5QHWaJKU3fPYgpxDei_Ihcwef66i9HqQDzEzyqe4FeOE22aonYFL2s26MA7Q/exec';
+    const url = 'https://script.google.com/macros/s/AKfycbzM3bn60tNY4rqUe8WHrIsN6gQKtfy9Tth6UfeW-oUQemkeKjPkUFDHkww0z2R3yvML1Q/exec';
 
     const response = await fetch(url, {
       method: 'POST',
