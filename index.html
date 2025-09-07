@@ -112,7 +112,7 @@
                     <div id="timeline" class="timeline hidden">
                         <div class="event">
                             <img src="assets/img/icons/champagne-glass.png" alt="Aperitivo">
-                            <p>10:00 </br>Aperitivo con lo sposo</p>
+                            <p>9:45 </br>Aperitivo con lo sposo</p>
                         </div>
                         <div class="event">
                             <img src="assets/img/icons/wedding-ring.png" alt="Cerimonia">
@@ -179,26 +179,26 @@
                         <!-- section hidden-->
                         <!-- Sezione partner -->
                         <div class="mb-3" id="partnerSection" style="display:none;">
-                        <label class="form-label fw-semibold">Verrai accompagnato?</label>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="partner" id="partnerSi" value="si">
-                            <label class="form-check-label" for="partnerSi">Sì</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="partner" id="partnerNo" value="no" checked>
-                            <label class="form-check-label" for="partnerNo">No</label>
-                        </div>
-                        <!-- Campi nome e cognome partner -->
-                        <div class="row" id="nomeCognomePartner" style="display:none;">
-                            <div class="col-md-6 mb-3">
-                                <label for="nome" class="form-label">Nome*</label>
-                                <input type="text" class="form-control" id="nomePartner">
+                            <label class="form-label fw-semibold">Verrai accompagnato?</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="partner" id="partnerSi" value="si">
+                                <label class="form-check-label" for="partnerSi">Sì</label>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="nome" class="form-label">Cognome*</label>
-                                <input type="text" class="form-control" id="cognomePartner">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="partner" id="partnerNo" value="no" checked>
+                                <label class="form-check-label" for="partnerNo">No</label>
                             </div>
-                        </div>
+                            <!-- Campi nome e cognome partner -->
+                            <div class="row" id="nomeCognomePartner" style="display:none;">
+                                <div class="col-md-6 mb-3">
+                                    <label for="nome" class="form-label">Nome*</label>
+                                    <input type="text" class="form-control" name="nomePartner">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="nome" class="form-label">Cognome*</label>
+                                    <input type="text" class="form-control" name="cognomePartner">
+                                </div>
+                            </div>
                         <!-- Allergie/intolleranze -->
                         <div class="mb-3" id="intolleranzeSection">
                             <label for="intolleranze" class="form-label">Indicare eventuali intolleranze/allergie</label>
@@ -206,19 +206,24 @@
                         </div>
                         <!-- Campo figli -->
                         <div class="mb-3" id="figliSection">
-                            <label for="numBambini" class="form-label">Indicare eventuali figli</label>
-                            <input type="number" class="form-control" id="figli" name="numBambini" min="0" placeholder="Numero di bambini">
-                        </div>
-                        <div class="mb-3" id="etaContainer"></div>
-                        <div class="mb-3" id="intolleranze"></div>
+                            <label for="numBambini" class="form-label">Indicare eventuali bambini (da 4 a 12 aa)</label>
+                            <input type="number" class="form-control" id="figli" name="numBambini" min="0" placeholder="Numero bambini">
                         </div>
                         <!-- /section hidden-->
-
+                        </div>
                         <!-- Campo invio-->
                         <div class="mb-3 mt-4">
                             <button type="submit" class="btn btn-primary">Invia conferma</button>
-                        </div>                                    
+                        </div>
                     </form>
+                    <div id="overlay">
+                         <div class="loader"></div>
+                    </div>
+                    <!-- Messaggio Alert -->
+                    <div id="alertBox" class="alert" style="display: none;">
+                        <p id="alertMessage"></p>
+                        <button onclick="closeAlert()">Chiudi</button>
+                    </div>                
                 </div>
             </div>
         </section>
