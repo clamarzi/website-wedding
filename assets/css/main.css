@@ -788,7 +788,55 @@ button[type="submit"] {
   opacity: 1 !important;
 }
 
- .conferme .conferma-item {
+#alertBox {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  display: none;
+  background-color: #e9bcbc;
+  color: #5c1e1e;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  max-width: 90%;
+  font-family: var(--default-font);
+  font-size: 1.1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  margin: 1rem auto;
+}
+
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.6); /* sfondo trasparente */
+  z-index: 9999;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader {
+  border: 4px solid transparent;
+  border-top: 4px solid #f4a6b2;
+  border-bottom: 4px solid #f4a6b2;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 1rem auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.conferme .conferma-item {
   background-color: var(--surface-color);
   box-shadow: 0px 0 25px 0 rgba(0, 0, 0, 0.1);
   padding: 50px 30px;
