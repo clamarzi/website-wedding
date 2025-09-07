@@ -6,7 +6,6 @@
 * License: https://bootstrapmade.com/license/
 */
 
-
 function countdown() {
 	const countdownElement = document.getElementById('countdown');
 	const weddingDate = new Date('2025-10-04T00:00:00');
@@ -32,16 +31,17 @@ function mostraTimeline() {
 	document.getElementById("timeline").classList.toggle("show");
 }
 
-
 function gestioneCampiConferma(){
+  debugger;
   const nome = document.getElementById("nome");
   const cognome = document.getElementById("cognome");
 	const confermaInputs = document.getElementsByName("conferma");
 	const partnerSection = document.getElementById("partnerSection");
 	const partnerFields = document.getElementById("nomeCognomePartner");
 	const figliSection = document.getElementById("figliSection");
-	const etaContainer = document.getElementById("etaContainer");
 	const partnerInput = document.getElementsByName("partner");
+  const nomePartner = document.getElementsByName("nomePartner");
+  const cognomePartner = document.getElementsByName("cognomePartner");
 	const figliInput = document.getElementById("figli");
 
 	function aggiornaVisibilità() {
@@ -53,10 +53,11 @@ function gestioneCampiConferma(){
 			partnerSection.style.display = "none";
 			figliSection.style.display = "none";
 			partnerFields.style.display = "none";
-			etaContainer.innerHTML = "";
 		}
 	}
+
 	// Gestione partner
+  debugger;
 	partnerInput.forEach(input => {
 		input.addEventListener("change", () => {
 			if (input.value === "si" && input.checked) {
@@ -66,27 +67,7 @@ function gestioneCampiConferma(){
 			}
 		});
 	});
-	// Gestione figli
-	figliInput.addEventListener("input", () => {
-		etaContainer.innerHTML = "";
-		const numero = parseInt(figliInput.value) || 0;
-		for (let i = 1; i <= numero; i++) {
-			const label = document.createElement("label");
-			label.textContent = `Età`;
-			label.className = "form-label";
-			const input = document.createElement("input");
-			input.type = "number";
-			input.name = `età`;
-			input.className = "form-control";
-			input.required = true;
-			input.min = 0;
-			const div = document.createElement("div");
-			div.className = "mb-3";
-			div.appendChild(label);
-			div.appendChild(input);
-			etaContainer.appendChild(div);
-		}
-	});
+
 	// Cambi conferma
 	confermaInputs.forEach(input => {
 		input.addEventListener("change", aggiornaVisibilità);
@@ -94,48 +75,90 @@ function gestioneCampiConferma(){
 	aggiornaVisibilità(); // iniziale
   }
 
-function fetchDati(){
-  document.getElementById("rsvp-form").addEventListener("submit", function(e) {
+function fetchDati() {
+  document.getElementById("rsvp-form").addEventListener("submit", function (e) {
     e.preventDefault();
+    document.getElementById("loader").style.display = "block";
     const form = e.target;
     const formData = new FormData(form);
     const data = {};
-    debugger;
+
     formData.forEach((value, key) => {
       data[key] = value;
     });
 
-    // Aggiunge le età dei bambini se presenti
-    const numBambini = parseInt(data.figli || 0);
-    for (let i = 1; i <= numBambini; i++) {
-      const eta = document.getElementById(`etai`);
-      if (eta) data[`eta{i}`] = eta.value;
-    }
+    sendDataToSheet(data);
+  });
+}
+function fetchDati() {
+  document.getElementById("rsvp-form").addEventListener("submit", function (e) {
+    e.preventDefault();
 
-    debugger;
+    // Mostra overlay/loader
+    document.getElementById("overlay").style.display = "flex";
+
+    const form = e.target;
+    const formData = new FormData(form);
+    const data = {};
+
+    formData.forEach((value, key) => {
+      data[key] = value;
+    });
+
     sendDataToSheet(data);
   });
 }
 
 async function sendDataToSheet(data) {
-    const url = 'https://script.google.com/macros/s/AKfycbzM3bn60tNY4rqUe8WHrIsN6gQKtfy9Tth6UfeW-oUQemkeKjPkUFDHkww0z2R3yvML1Q/exec';
+  const url = 'https://script.google.com/macros/s/AKfycbw5R-NrzQ-ufavkGtF97Z4ADzAq_C0Gb8912Ul1ceS9H_RByozyiKXvuxfL3ESY3ns4nA/exec'; 
 
+  try {
     const response = await fetch(url, {
       method: 'POST',
-      body: JSON.stringify(data), // Invia i dati come JSON
+      body: JSON.stringify(data),
     });
+
     const result = await response.text();
-    if(response.ok){
-      alert("Conferma inviata!");
-    }else{
-      alert("Errore durante l'invio.");
+
+    // Nasconde loader
+    document.getElementById("overlay").style.display = "none";
+
+    if (response.ok) {
+      showAlert("🎉 Conferma inviata con successo! Non vediamo l'ora di festeggiare con te!");
+    } else {
+      showAlert("😬 Ops! Qualcosa è andato storto... Riprova tra qualche secondo o contattaci.");
     }
+
+    document.querySelector("form").reset();
+
     console.log(result);
+  } catch (error) {
+    document.getElementById("overlay").style.display = "none";
+    showAlert("❌ Errore di rete. Controlla la connessione e riprova.");
+    console.error(error);
+  }
+}
+
+function showAlert(msg) {
+  console.log("showAlert chiamata con messaggio:", msg);
+  const box = document.getElementById("alertBox");
+  const msgEl = document.getElementById("alertMessage");
+
+  msgEl.textContent = msg;
+  box.style.display = "block";
+
+  setTimeout(() => {
+    box.style.display = "none";
+  }, 5000);
+}
+
+function closeAlert() {
+  document.getElementById("alertBox").style.display = "none";
 }
 
 document.addEventListener("DOMContentLoaded", function() {
 	countdown();
-
+  
   gestioneCampiConferma();
 
   fetchDati();
